@@ -1,4 +1,4 @@
-name: Kubernetes Namespace Creation
+name: Kubernetes Namespace Creation for Chaos Testing
 
 on:
   workflow_dispatch:
