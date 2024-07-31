@@ -7,14 +7,19 @@ on:
         description: Respository Name
         type: string
         required: true
-      _entity_environment_spec_ResourceGroup:
+      _entity_environment_spec_resourceGroup:
         description: Environment Resource Group
         type: string
         required: false
-      _entity_environment_spec_Subscription:
+      _entity_environment_spec_subscription:
         description: Environment Subscription
         type: string
         required: false
+      _entity_environment_labels_clusterName:
+        description: The name of the cluster in the resource group
+        type: string
+        required: false
+  
 
 
 env:
@@ -32,13 +37,13 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ inputs._entity_environment_spec_subscription }}
 
       - uses: azure/aks-set-context@v4
         with:
-          resource-group: ${{ inputs.AZURE_RESOURCE_GROUP }}
-          # cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
-          cluster-name: mdw-k8s
+          resource-group: ${{ inputs._entity_environment_spec_resourceGroup }}
+          # cluster-name: ${{ inputs.AZURE_CLUSTER_NAME }}
+          cluster-name: ${{ inputs._entity_environment_labels_clusterName }}
 
       - name: Apply
         run: kubectl apply -f manifests/namespace.yml

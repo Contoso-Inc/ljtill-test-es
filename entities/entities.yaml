@@ -3,18 +3,21 @@ apiVersion: developer.microsoft.com/v1
 kind: Environment
 metadata:
   name: lil-j-test-env
-  namespace: slurp
+  namespace: lil-j-sharedk8s
   provider: github.com
   title: lil-j-test
   labels:
-    azure.com/subscription: 55acd01d-a405-4a4b-bc1b-c85300b0ff62
-    azure.com/user: e8749a8b-3c61-4eba-a6be-0bc9c847492d
+    subscription: 72913500-f009-4a07-8d08-8c9d78e811bc
+    clusterName: mscts
   links:
-  - url: https://portal.azure.com/#@msdevplat.onmicrosoft.com/resource/subscriptions/55acd01d-a405-4a4b-bc1b-c85300b0ff62/resourceGroups/project-beta-mdw-dev-env
+  - url: https://portal.azure.com/#@ME-MngEnv677556-lytill-1.onmicrosoft.com/resource/subscriptions/72913500-f009-4a07-8d08-8c9d78e811bc/resourceGroups/Clusters
     title: Azure Portal
     type: azure
 spec:
-  type: azure
-  resourceId: "/subscriptions/55acd01d-a405-4a4b-bc1b-c85300b0ff62/resourceGroups/sharedk8s"
-  resourceGroup: sharedk8s
-  subscription: 55acd01d-a405-4a4b-bc1b-c85300b0ff62
+  - type: azure
+    resourceId: "/subscriptions/72913500-f009-4a07-8d08-8c9d78e811bc/resourceGroups/Clusters"
+    resourceGroup: Clusters
+    subscription: 72913500-f009-4a07-8d08-8c9d78e811bc
+  - type: kubernetes.cluster
+    resourceId: "/subscriptions/72913500-f009-4a07-8d08-8c9d78e811bc/resourcegroups/Clusters/providers/Microsoft.ContainerService/managedClusters/mscts"
+    subscription: 72913500-f009-4a07-8d08-8c9d78e811bc
