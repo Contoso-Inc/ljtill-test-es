@@ -36,8 +36,9 @@ jobs:
 
       - uses: azure/aks-set-context@v4
         with:
-          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
-          cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
+          resource-group: ${{ inputs.AZURE_RESOURCE_GROUP }}
+          # cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
+          cluster-name: mdw-k8s
 
       - name: Apply
         run: kubectl apply -f manifests/namespace.yml
