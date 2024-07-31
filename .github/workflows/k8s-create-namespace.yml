@@ -15,10 +15,7 @@ on:
         description: Environment Subscription
         type: string
         required: false
-      _entity_test_metadata_name:
-        description: testName
-        type: string
-        required: false
+
 
 env:
   description: This workflow is used to create a Kubernetes namespace

@@ -1,1 +1,20 @@
-# Test
+---
+apiVersion: developer.microsoft.com/v1
+kind: Environment
+metadata:
+  name: lil-j-test-env
+  namespace: sharedk8s
+  provider: github.com
+  title: lil-j-test
+  labels:
+    azure.com/subscription: 55acd01d-a405-4a4b-bc1b-c85300b0ff62
+    azure.com/user: e8749a8b-3c61-4eba-a6be-0bc9c847492d
+  links:
+  - url: https://portal.azure.com/#@msdevplat.onmicrosoft.com/resource/subscriptions/55acd01d-a405-4a4b-bc1b-c85300b0ff62/resourceGroups/project-beta-mdw-dev-env
+    title: Azure Portal
+    type: azure
+spec:
+  type: azure
+  resourceId: "/subscriptions/55acd01d-a405-4a4b-bc1b-c85300b0ff62/resourceGroups/sharedk8s"
+  resourceGroup: sharedk8s
+  subscription: 55acd01d-a405-4a4b-bc1b-c85300b0ff62
