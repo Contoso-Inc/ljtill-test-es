@@ -25,6 +25,10 @@ on:
 env:
   description: This workflow is used to create a Kubernetes namespace
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   log:
     runs-on: ubuntu-latest
