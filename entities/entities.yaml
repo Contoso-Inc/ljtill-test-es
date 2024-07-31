@@ -3,7 +3,7 @@ apiVersion: developer.microsoft.com/v1
 kind: Environment
 metadata:
   name: lil-j-test-env
-  namespace: sharedk8s
+  namespace: slurp
   provider: github.com
   title: lil-j-test
   labels:
