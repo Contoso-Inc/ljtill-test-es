@@ -15,14 +15,15 @@ on:
         description: Environment Subscription
         type: string
         required: false
-      _entity_environment_labels_clusterName:
-        description: The name of the cluster in the resource group
-        type: string
-        required: false
+
 
 
 env:
   description: This workflow is used to create a Kubernetes namespace
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   log:
@@ -41,7 +42,7 @@ jobs:
       - uses: azure/aks-set-context@v4
         with:
           resource-group: ${{ inputs._entity_environment_spec_resourceGroup }}
-          cluster-name: ${{ inputs._entity_environment_labels_clusterName }}
+          # cluster-name: ${{ inputs._entity_environment_labels_clusterName }}
 
       - name: Apply
         run: kubectl apply -f manifests/namespace.yml
