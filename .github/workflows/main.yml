@@ -1,0 +1,46 @@
+name: Kubernetes Namespace Creation
+
+on:
+  workflow_dispatch:
+    inputs:
+      _entity_repository_metadata_name:
+        description: Respository Name
+        type: string
+        required: true
+      _entity_environment_spec_ResourceGroup:
+        description: Environment Resource Group
+        type: string
+        required: false
+      _entity_environment_spec_Subscription:
+        description: Environment Subscription
+        type: string
+        required: false
+      _entity_test_metadata_name:
+        description: testName
+        type: string
+        required: false
+
+env:
+  description: This workflow is used to create a Kubernetes namespace
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+          cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
+
+      - name: Apply
+        run: kubectl apply -f manifests/namespace.yml
