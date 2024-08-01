@@ -3,10 +3,6 @@ name: Kubernetes Namespace Creation
 on:
   workflow_dispatch:
     inputs:
-      _entity_repository_metadata_name:
-        description: Respository Name
-        type: string
-        required: true
       _entity_environment_spec_resourceGroup:
         description: Environment Resource Group
         type: string
@@ -15,7 +11,10 @@ on:
         description: Environment Subscription
         type: string
         required: false
-
+      _entity_environment_spec_cluserName:
+        description: The name of the cluster in which to create the namespace
+        type: string
+        required: false
 
 
 env:
@@ -42,7 +41,7 @@ jobs:
       - uses: azure/aks-set-context@v4
         with:
           resource-group: ${{ inputs._entity_environment_spec_resourceGroup }}
-          # cluster-name: ${{ inputs._entity_environment_labels_clusterName }}
+          cluster-name: ${{ inputs._entity_environment_spec_clusterName }}
 
       - name: Apply
         run: kubectl apply -f manifests/namespace.yml
