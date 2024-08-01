@@ -20,6 +20,7 @@ spec:
   resourceId: "/subscriptions/72913500-f009-4a07-8d08-8c9d78e811bc/resourceGroups/Clusters"
   resourceGroup: Clusters
   subscription: "72913500-f009-4a07-8d08-8c9d78e811bc"
+  clusterName: "mscts"
 
 
 
