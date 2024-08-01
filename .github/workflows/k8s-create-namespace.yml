@@ -11,7 +11,10 @@ on:
         description: Environment Subscription
         type: string
         required: false
-
+      _entity_environment_spec_clusterName:
+        description: The name of the cluster in which to create the namespace
+        type: string
+        required: false
 
 
 env:
