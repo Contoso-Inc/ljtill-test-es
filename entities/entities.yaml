@@ -15,6 +15,13 @@ metadata:
     type: azure
 spec:
   - type: azure
+    kind: Resource
+    name: Clusters
     resourceId: "/subscriptions/72913500-f009-4a07-8d08-8c9d78e811bc/resourceGroups/Clusters"
     resourceGroup: Clusters
     subscription: "72913500-f009-4a07-8d08-8c9d78e811bc"
+creates:
+  - kind: Namespace
+    namespace: AzureKubernetes
+
+
