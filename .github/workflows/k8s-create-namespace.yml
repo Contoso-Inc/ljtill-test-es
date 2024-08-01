@@ -29,6 +29,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: InputSummary
+        run: |
+          echo "### Inputs" >> $GITHUB_STEP_SUMMARY
+          echo "| input | value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ----- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_ResourceGroup | ${{ inputs._entity_environment_spec_ResourceGroup }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_Subscription | ${{ inputs._entity_environment_spec_Subscription }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_clusterName | ${{ inputs._entity_environment_spec_clusterName }} |" >> $GITHUB_STEP_SUMMARY
+
       - name: Checkout
         uses: actions/checkout@v4
 
