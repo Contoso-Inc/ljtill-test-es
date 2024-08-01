@@ -2,7 +2,7 @@
 apiVersion: developer.microsoft.com/v1
 kind: Environment
 metadata:
-  name: "lil-j-test-env"
+  name: "lil-j-test"
   namespace: "lil-j-sharedk8s"
   provider: github.com
   title: "lil-j-test"
