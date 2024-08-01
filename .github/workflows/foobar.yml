@@ -1,0 +1,53 @@
+name: Kubernetes Foobar
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: Environment Resource Group
+        type: string
+        required: false
+      subscription:
+        description: Environment Subscription
+        type: string
+        required: false
+
+
+
+env:
+  description: This workflow is used to create a Kubernetes foobar
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: InputSummary
+        run: |
+          echo "### Inputs" >> $GITHUB_STEP_SUMMARY
+          echo "| input | value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ----- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_ResourceGroup | ${{ inputs._resourceGroup }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_Subscription | ${{ inputs.subscription }} |" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ inputs.subscription }}
+
+      - uses: azure/aks-set-context@v4
+        with:
+          resource-group: ${{ inputs.resourceGroup }}
+          # cluster-name: ${{ inputs.clusterName }}
+          cluster-name: mcis
+
+      - name: Apply
+        run: kubectl apply -f manifests/namespace.yml
