@@ -7,11 +7,17 @@ on:
         description: Environment Resource Group
         type: string
         required: false
+        default: "Clusters"
       subscription:
         description: Environment Subscription
         type: string
         required: false
-        default: "1234"
+        default: "72913500-f009-4a07-8d08-8c9d78e811bc"
+      clusterName:
+        description: The name of the cluster
+        type: string
+        required: false
+        default: "mscts"  
 
 
 
@@ -34,6 +40,8 @@ jobs:
           echo "| ----- | ----- |" >> $GITHUB_STEP_SUMMARY
           echo "| _entity_environment_spec_ResourceGroup | ${{ inputs.resourceGroup }} |" >> $GITHUB_STEP_SUMMARY
           echo "| _entity_environment_spec_Subscription | ${{ inputs.subscription }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_clusterName | ${{ inputs.clusterName }} |" >> $GITHUB_STEP_SUMMARY
+  
           
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,8 +55,8 @@ jobs:
       - uses: azure/aks-set-context@v4
         with:
           resource-group: ${{ inputs.resourceGroup }}
-          # cluster-name: ${{ inputs.clusterName }}
-          cluster-name: mcis
+          cluster-name: ${{ inputs.clusterName }}
+  
 
       - name: Apply
         run: kubectl apply -f manifests/namespace.yml
