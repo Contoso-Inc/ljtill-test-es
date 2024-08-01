@@ -1,0 +1,62 @@
+name: Kubernetes Barfoo
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: Environment Resource Group
+        type: string
+        required: false
+        default: "Clusters"
+      subscription:
+        description: Environment Subscription
+        type: string
+        required: false
+        default: "72913500-f009-4a07-8d08-8c9d78e811bc"
+      clusterName:
+        description: The name of the cluster
+        type: string
+        required: false
+        default: "mscts"  
+
+
+
+env:
+  description: This workflow is used to delete a Kubernetes boofar
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: InputSummary
+        run: |
+          echo "### Inputs" >> $GITHUB_STEP_SUMMARY
+          echo "| input | value |" >> $GITHUB_STEP_SUMMARY
+          echo "| ----- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_ResourceGroup | ${{ inputs.resourceGroup }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_Subscription | ${{ inputs.subscription }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| _entity_environment_spec_clusterName | ${{ inputs.clusterName }} |" >> $GITHUB_STEP_SUMMARY
+  
+          
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ inputs.subscription }}
+
+      - uses: azure/aks-set-context@v4
+        with:
+          resource-group: ${{ inputs.resourceGroup }}
+          cluster-name: ${{ inputs.clusterName }}
+  
+
+      - name: Apply
+        run: kubectl delete -f manifests/namespace.yml
