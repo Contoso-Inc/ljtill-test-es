@@ -11,6 +11,7 @@ on:
         description: Environment Subscription
         type: string
         required: false
+        default: "1234"
 
 
 
