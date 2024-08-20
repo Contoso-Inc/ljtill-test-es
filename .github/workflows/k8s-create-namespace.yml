@@ -1,4 +1,4 @@
-name: Kubernetes Namespace Creation
+name: Create Kubernetes Namespace
 
 on:
   workflow_dispatch:
